@@ -5,11 +5,12 @@ A small Windower addon that automatically replaces the Harvest Festival event mu
 
 Installation
 ------------
-1. Copy the `DevilsDespair` folder (containing `DevilsDespair.lua`) into your Windower `addons` directory. Example path:
+1. Download the file either directly, or from [here](https://github.com/Daleterrence/Devils-Despair/releases/tag/1.0). 
+2. Copy the `DevilsDespair` folder (containing `DevilsDespair.lua`) into your Windower `addons` directory. Example path:
 
    c:\Windower\addons\DevilsDespair
 
-2. Load or reload the addon in-game with:
+3. Load or reload the addon in-game with:
 
    //lua load devilsdespair
    //lua reload devilsdespair
