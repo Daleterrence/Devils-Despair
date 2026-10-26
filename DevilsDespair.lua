@@ -28,9 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 
-_addon.name = 'Devil\'s Despair'
+_addon.name = 'DevilsDespair'
 _addon.author = 'DTR'
-_addon.version = '1.0'
+_addon.version = '1.1'
 _addon.desc = 'Removes Halloween Harvest Festival music by replacing it with the original zone music.'
 _addon.commands = {'dd'}
 
@@ -41,7 +41,7 @@ local res = require('resources')
 local packets = require('packets')
 local send_command = windower.send_command
 local add_to_chat = windower.add_to_chat
-local addon_title = ('['):color(36)..('Devil\'s Despair'):color(209)..('] '):color(36)
+local addon_title = ('['):color(36)..('DevilsDespair'):color(209)..('] '):color(36)
 
 -- Default settings
 local defaults = {
@@ -50,42 +50,8 @@ local defaults = {
 
 local settings = config.load(defaults)
 
--- Zone music mapping (zone name -> music ID)
-local zone_music = {
-    -- San d'Oria
-    ['Port San d\'Oria'] = 107,
-    ['Northern San d\'Oria'] = 107,
-    ['Southern San d\'Oria'] = 107,
-    
-    -- Bastok
-    ['Bastok Markets'] = 152,
-    ['Bastok Mines'] = 152,
-    ['Port Bastok'] = 152,
-    ['Metalworks'] = 154,
-    
-    -- Windurst
-    ['Windurst Waters'] = 151,
-    ['Windurst Walls'] = 151,
-    ['Port Windurst'] = 151,
-    ['Windurst Woods'] = 151,
-
-    --Jeuno
-    ['Port Jeuno'] = 110,
-    ['Ru\'Lude Gardens'] = 110,
-    ['Upper Jeuno'] = 110,
-    ['Lower Jeuno'] = 110,
-
-    --Adoulin
-    ['Western Adoulin'] = 59,
-
-    --Outdoor zones
-    ['Misareaux Coast'] = 230,
-    ['Qufim Island'] = 0,
-
-    -- Dungeons
-    ['Horlais Peak'] = 0,
-    ['Upper Delkfutt\'s Tower'] = 0
-}
+-- Zone music mapping (zone ID -> music ID)
+local zone_music = require('zone_music')
 
 local current_zone = nil
 
@@ -113,8 +79,7 @@ windower.register_event('incoming chunk', function(id, original, modified, injec
         
         -- Get current zone info
         local current_zone_id = windower.ffxi.get_info().zone
-        local zone_info = res.zones[current_zone_id]
-        local correct_music = zone_info and zone_music[zone_info.en]
+        local correct_music = zone_music[current_zone_id]
         
         -- Replaces day and night music with their original, appropriate music
         if (day_music == 29 or night_music == 29) and correct_music then
